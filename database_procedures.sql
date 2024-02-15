@@ -22,7 +22,7 @@ CREATE PROCEDURE AddItem(
     IN new_date_of_closing DATETIME,
     IN new_current_price INT,
     IN new_description VARCHAR(5000),
-    IN new_seller_id VARCHAR(64),
+    IN new_seller_id INT,
     IN new_date_of_listing DATETIME
 )
 BEGIN
@@ -34,5 +34,3 @@ BEGIN
     SELECT TRUE;
 END //
 DELIMITER ;
-
-call AddItem('Game', '2020-03-01 12:00:00', 5000, 'Super Mario game', 3, '2020-01-01 00:00:00');
