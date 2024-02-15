@@ -4,13 +4,13 @@ USE CS_Capstone;
 
 -- Create the users table
 CREATE TABLE IF NOT EXISTS users (
-	user_id INT PRIMARY KEY,
+	user_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(64) UNIQUE NOT NULL
 );
 
 -- Create the items table
 CREATE TABLE IF NOT EXISTS items (
-	item_id INT PRIMARY KEY,
+	item_id INT PRIMARY KEY AUTO_INCREMENT,
     seller_id INT NOT NULL,
     highest_bidder_id INT,
     item_title VARCHAR(64) NOT NULL,
