@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add User</title>
+</head>
+<body>
+    <h2>Add User</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add User</button>
+    </form>
+    <!-- Add a link to the Add Item page -->
+    <a href="/add_item/"><button type="button">Go to Add Item</button></a>
+</body>
+</html>
