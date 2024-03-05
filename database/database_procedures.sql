@@ -47,3 +47,28 @@ BEGIN
     SELECT TRUE;
 END //
 DELIMITER ;
+
+-- Procedure to find items from a given seller or by title
+DROP PROCEDURE IF EXISTS findItems;
+DELIMITER //
+CREATE PROCEDURE findItems(
+    IN search_text VARCHAR(64)
+)
+BEGIN
+	-- Declare a variable to get the seller ID from the username
+    DECLARE found_username VARCHAR(64) DEFAULT -1;
+    DECLARE found_id VARCHAR(64) DEFAULT -1;
+
+	-- Declare an error handler that returns NULL if an error occurs
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT NULL;
+    
+    -- Get the desired values from the item table
+    SELECT items.item_title, users.username, items.current_price, items.date_of_closing
+    FROM items INNER JOIN users ON items.seller_id = users.user_id
+    WHERE (item_title LIKE concat("%", search_text, "%"))
+    OR (item_description LIKE concat("%", search_text, "%"))
+    OR (username LIKE concat("%", search_text, "%"));
+END //
+DELIMITER ;
+
+
