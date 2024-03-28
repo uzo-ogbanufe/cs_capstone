@@ -19,7 +19,7 @@ def add_item(request):
             dateClose = request.POST.get('end_date')
             if not dateClose:
                 return JsonResponse({"error": "Missing Closing Date"}, status=400)
-            
+            dateClose = datetime.datetime.fromisoformat(dateClose)
 
             price = request.POST.get('initial_price')
             if not price:
@@ -31,9 +31,16 @@ def add_item(request):
                 return JsonResponse({"error": "Missing description"}, status=400)
 
 
-            date_of_listing = '2020-01-01 00:00:00'
+            date_of_listing = datetime.datetime.now()
+            
+
+            
 
             seller_id = 1
+
+            if(date_of_listing > dateClose):
+                return JsonResponse({"error": "closing time after start time"}, status=400)
+            
 
             try:
                 with connection.cursor() as cursor:
