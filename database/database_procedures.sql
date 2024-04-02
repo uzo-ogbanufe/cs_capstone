@@ -49,16 +49,12 @@ END //
 DELIMITER ;
 
 -- Procedure to find items from a given seller or by title
-DROP PROCEDURE IF EXISTS findItems;
+DROP PROCEDURE IF EXISTS getItemsBySearch;
 DELIMITER //
-CREATE PROCEDURE findItems(
+CREATE PROCEDURE getItemsBySearch(
     IN search_text VARCHAR(64)
 )
 BEGIN
-	-- Declare a variable to get the seller ID from the username
-    DECLARE found_username VARCHAR(64) DEFAULT -1;
-    DECLARE found_id VARCHAR(64) DEFAULT -1;
-
 	-- Declare an error handler that returns NULL if an error occurs
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT NULL;
     
@@ -71,4 +67,19 @@ BEGIN
 END //
 DELIMITER ;
 
-
+-- Procedure to find items from a given seller or by title
+DROP PROCEDURE IF EXISTS getAllItems;
+DELIMITER //
+CREATE PROCEDURE getAllItems(
+    IN filter_date DATETIME
+)
+BEGIN
+	-- Declare an error handler that returns NULL if an error occurs
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT NULL;
+    
+    -- Get the desired values from the item table
+    SELECT items.item_title, users.username, items.current_price, items.date_of_closing
+    FROM items INNER JOIN users ON items.seller_id = users.user_id
+    WHERE items.date_of_closing > filter_date;
+END //
+DELIMITER ;
