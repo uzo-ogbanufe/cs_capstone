@@ -40,8 +40,8 @@ BEGIN
     SELECT user_id INTO new_seller_id FROM users WHERE username = new_seller_username;
     
     -- Add the item to the database
-    INSERT INTO items (item_title, date_of_closing, current_price, item_description, seller_id, date_of_listing) 
-    VALUES (new_title, new_date_of_closing, new_current_price, new_description, new_seller_id, new_date_of_listing);
+    INSERT INTO items (item_title, date_of_closing, current_price, item_description, seller_id, date_of_listing, is_canceled) 
+    VALUES (new_title, new_date_of_closing, new_current_price, new_description, new_seller_id, new_date_of_listing, FALSE);
     
     -- Return true on success
     SELECT TRUE;
@@ -80,6 +80,7 @@ BEGIN
     -- Get the desired values from the item table
     SELECT items.item_title, users.username, items.current_price, items.date_of_closing
     FROM items INNER JOIN users ON items.seller_id = users.user_id
-    WHERE items.date_of_closing > filter_date;
+    WHERE (items.date_of_closing > filter_date)
+    AND (items.is_canceled = FALSE);
 END //
 DELIMITER ;
