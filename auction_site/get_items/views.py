@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.db import connection
 from datetime import datetime
 
@@ -13,14 +13,15 @@ def get_items(request):
         with connection.cursor() as cursor:
             # Call the procedure to get all of the items
             now = datetime.now()
-            cursor.callproc('findAllItems', [now])
+            cursor.callproc('getAllItems', ['2019-01-01 00:00:00'])
 
-            # Get one result from the query
+            # Get all of the items from the query
             results = cursor.fetchall()
 
-            return render(request, "hello.html", {"items": results})
+            # Render the webpage
+            return render(request, 'get_items.html', {"items": results})
     
     # If an error occurs, display the error
     except Exception as e:
-        return HttpResponse("<html><body>Error: {e}</body></html>")
+        return JsonResponse({"error": str(e)}, status=500)
 
