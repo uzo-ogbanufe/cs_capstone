@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS items (
     date_of_closing DATETIME NOT NULL,
     item_description VARCHAR(5000),
     current_price INT NOT NULL,
+    is_canceled BOOLEAN NOT NULL,
     
     -- Add the constraints to the table
     FOREIGN KEY (seller_id) REFERENCES users(user_id),

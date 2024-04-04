@@ -1,14 +1,13 @@
 USE CS_Capstone;
 
 -- Add test data to the user table
-INSERT INTO users (username) VALUES
-	('Alice'), 
-    ('Bob'),
-    ('Catherine'),
-    ('Daniel');
+call addUser('Alice');
+call addUser('Bob');
+call addUser('Catherine');
+call addUser('Daniel');
     
 -- Add test data into the items table
-INSERT INTO items (seller_id, highest_bidder_id, item_title, date_of_listing, date_of_closing, item_description, current_price) VALUES
-    (1, 3, 'Shirt', '2020-01-01 00:00:00', '2020-02-01 00:00:00', 'A vintage T-Shirt', 4000),
-    (2, 4, 'Pants', '2020-01-01 00:00:00', '2020-02-01 00:00:00', 'A pair of used jeans', 6000),
-    (4, NULL, 'Socks', '2020-01-01 00:00:00', '2020-02-01 00:00:00', '10 pairs of pink socks', 1500);
+call addItem('Hat', 'A baseball cap', 'Bob', 1250, CURRENT_TIMESTAMP(), '2025-01-03 06:50:20');
+call addItem('Shirt', 'A vintage t-shirt', 'Catherine', 1999, CURRENT_TIMESTAMP(), '2024-07-11 16:20:00');
+call addItem('Pants', NULL, 'Alice', 3000, CURRENT_TIMESTAMP(), '2025-01-03 00:00:00');
+call addItem('Shoes', 'A pair of running shoes', 'Daniel', 1500, CURRENT_TIMESTAMP(), '2026-12-25 04:50:20');
