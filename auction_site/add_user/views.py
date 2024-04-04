@@ -22,7 +22,7 @@ def add_user(request):
                 # Assuming successful insertion without fetching result
                     if(bool(results[0][0])):
                         return JsonResponse({"success": True})
-                    elif(cursor.execute(f"SELECT EXISTS(SELECT * FROM users WHERE username = {username})" )):
+                    elif(cursor.execute(f"SELECT EXISTS(SELECT * FROM users WHERE username = '{username}')" )):
                         return JsonResponse({"LOGGED IN GOOD JOB": True})
                     else:
                         return JsonResponse({"No way": False})
