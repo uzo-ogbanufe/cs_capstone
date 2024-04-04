@@ -21,9 +21,11 @@ def add_user(request):
                     results = cursor.fetchall()
                 # Assuming successful insertion without fetching result
                     if(bool(results[0][0])):
-                        return JsonResponse({"response": True})
+                        return JsonResponse({"success": True})
+                    elif(cursor.execute(f"SELECT EXISTS(SELECT * FROM users WHERE username = {username})" )):
+                        return JsonResponse({"LOGGED IN GOOD JOB": True})
                     else:
-                        return JsonResponse({"response": False})
+                        return JsonResponse({"No way": False})
             except Exception as e:
                 # For debugging purposes; in production, log the error and potentially mask direct error messages
                 return JsonResponse({"error": str(e)}, status=500)
