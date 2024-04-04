@@ -1,0 +1,17 @@
+<!-- auction_site/templates/auction_site/item_detail.html -->
+
+{% extends "base_generic.html" %} <!-- This should be the path to your base template -->
+
+{% block content %}
+  <h2>{{ item.title }}</h2>
+  <p><strong>Initial Price:</strong> ${{ item.initial_price }}</p>
+  <p><strong>Description:</strong> {{ item.description }}</p>
+
+  <!-- Bidding Form -->
+  <form method="post" action="{% url 'place_bid' item.id %}">
+    {% csrf_token %}
+    <label for="bid_amount">Your Bid:</label>
+    <input type="number" name="bid_amount" id="bid_amount" step="0.01" required>
+    <input type="submit" value="Place Bid">
+  </form>
+{% endblock %}
