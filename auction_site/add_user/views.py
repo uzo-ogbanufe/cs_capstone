@@ -1,40 +1,27 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from .forms import UserForm
-from django.views.decorators.http import require_http_methods
 from django.db import connection
+from django.contrib import messages
 
 def add_user(request):
-    if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            # Add the user to your database here
-            username = request.POST.get('username')
-            if not username:
-                return JsonResponse({"error": "Missing username"}, status=400)
-
-            try:
-                with connection.cursor() as cursor:
-                    # Call the stored procedure
-                    cursor.callproc('addUser', [username,])
-                    # If you need to fetch the result, modify accordingly. This example assumes insertion only.
-                    results = cursor.fetchall()
-                # Assuming successful insertion without fetching result
-                    if(bool(results[0][0])):
-                        return JsonResponse({"success": True})
-                    elif(cursor.execute(f"SELECT EXISTS(SELECT * FROM users WHERE username = '{username}')" )):
-                        return JsonResponse({"LOGGED IN GOOD JOB": True})
-                    else:
-                        return JsonResponse({"No way": False})
-            except Exception as e:
-                # For debugging purposes; in production, log the error and potentially mask direct error messages
-                return JsonResponse({"error": str(e)}, status=500)
-            
-            
-
-
-            return JsonResponse({'message': 'User added successfully'})
+    if request.method == 'POST':  
+        form = UserForm(request.POST)  # Get the form data from the POST request
+        if form.is_valid():  # Check if the form is valid
+            username = form.cleaned_data.get('username')  # Get the cleaned username data from the form
+            if not username:  # Check if username is empty
+                messages.error(request, 'Missing username')  # Add an error message if username is missing
+            else:
+                try:
+                    with connection.cursor() as cursor:
+                        cursor.callproc('addUser', [username,])  # Call the addUser stored procedure with the username
+                        results = cursor.fetchall()  # Fetch the results
+                        if bool(results[0][0]):  # Check if the user was added successfully
+                            messages.success(request, 'User added successfully')  # display a success message for user
+                        else:
+                            messages.error(request, 'Username has been taken, please try again')  # display an error message
+                except Exception as e:
+                    messages.error(request, str(e))  # Add an error message if an exception occurs
     else:
-        form = UserForm()
-    return render(request, 'add_user.html', {'form': form})
-
+        form = UserForm() 
+    return render(request, 'add_user.html', {'form': form})  # Render the add_user.html template with the form data

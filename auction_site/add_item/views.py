@@ -1,13 +1,16 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .forms import UserForm, ItemForm
+from .forms import ItemForm
 from django.views.decorators.http import require_http_methods
 from django.db import connection
 import datetime
 # Create your views here.
 
-
 def add_item(request):
+    '''
+    Add an item to the database
+    '''
+    # Check if the form is valid
     if request.method == 'POST':
         form = ItemForm(request.POST)
         if form.is_valid():
@@ -20,7 +23,6 @@ def add_item(request):
             if not title:
                 return JsonResponse({"error": "Missing item"}, status=400)
             
-            
 
             dateClose = request.POST.get('end_date')
             if not dateClose:
@@ -28,7 +30,10 @@ def add_item(request):
             dateClose = datetime.datetime.fromisoformat(dateClose)
 
             price = request.POST.get('initial_price')
-            if not price:
+            if price: 
+                price = float(price) * 100
+                print(price)
+            else:
                 return JsonResponse({"error": "Missing initial price"}, status=400)
             
 
