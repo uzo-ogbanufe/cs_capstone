@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'add_user',
     'add_item',
     'get_items',
+    'login',
 ]
 
 MIDDLEWARE = [
