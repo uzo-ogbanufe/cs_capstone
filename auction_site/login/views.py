@@ -35,14 +35,22 @@ def login(request):
     '''
     Check if the user exists, and if so log them in
     '''
+    # Check if the user is already logged in
+    if 'username' in request.session.keys():
+        username = request.session['username']
+        return render(request, 'temp.html', {'username': username})  # Render a test page with the username
+
+    # Get the username
     username = get_username(request)
     if not username:  # Check if username is empty or invalid
         messages.error(request, 'Invalid username')  # Add an error message if username is missing
         form = UserForm() #Default to empty form
+
     elif userExists(username, request):
         request.session['username'] = username  # Add the username to the session
         messages.success(request, 'Successfully logged in')  # display a success message
         form = UserForm(request.POST)
+        
     else:
         messages.error(request, 'Username or password not recognized')  # display an error message
         form = UserForm(request.POST)
