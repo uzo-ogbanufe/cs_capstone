@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.db import connection
 from django.contrib import messages
+from django.shortcuts import redirect
 from .forms import UserForm
 
 def get_username(request):
@@ -29,7 +30,14 @@ def userExists(username, request):
             return results[0][0]
     # Catch any errors
     except Exception as e:
-        messages.error(request, str(e))  # Add an error message if an exception occurs    
+        messages.error(request, str(e))  # Add an error message if an exception occurs
+
+def logout(request):
+    # Delete the current session
+    request.session.flush()
+     
+    # Go back to the login page with an empty form
+    return redirect(login)
 
 def login(request):
     '''
@@ -45,11 +53,13 @@ def login(request):
     if not username:  # Check if username is empty or invalid
         messages.error(request, 'Invalid username')  # Add an error message if username is missing
         form = UserForm() #Default to empty form
+        return render(request, 'login.html', {'form': form})
 
     elif userExists(username, request):
         request.session['username'] = username  # Add the username to the session
         messages.success(request, 'Successfully logged in')  # display a success message
         form = UserForm(request.POST)
+        return render(request, 'temp.html', {'username': username})
         
     else:
         messages.error(request, 'Username or password not recognized')  # display an error message
