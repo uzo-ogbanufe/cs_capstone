@@ -85,22 +85,6 @@ input[type="text"] {
 .submit-button:hover {
     background-color: #0056b3; 
 }
-
-/* Style for add item button */
-.add-item-button {
-    padding: 10px 20px; 
-    background-color: #28a745; 
-    color: #fff; 
-    border: none; 
-    border-radius: 5px; 
-    cursor: pointer; 
-}
-
-/* Hover effect for add item button */
-.add-item-button:hover {
-    background-color: #218838;
-}
-
 /* Style for button links */
 .btn-link {
     text-decoration: none; 
