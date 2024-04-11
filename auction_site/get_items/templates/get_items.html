@@ -1,22 +1,35 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
-    <body>
-        <h1>Items</h1>
-        <table>
-            <tr>
-                <th>Item Title</th>
-                <th>Seller</th>
-                <th>Price</th>
-                <th>Auction End Date</th>
-            </tr>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bidding App</title>
+    <link rel="stylesheet" href="{% static 'styles/welcome-page.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome, [ username ]!</h1>
+    </header>
+
+    <div class="container">
+        <h2>Items for auction</h2>
+        <div class="item-container">
             {% for item in items %}
-            <tr>
-                <td>{{item.0}}</td>
-                <td>{{item.1}}</td>
-                <td>{{item.2}}</td>
-                <td>{{item.3}}</td>
-            </tr>
+            <div class="item">
+                <h3>{{ item.0 }}</h3>
+                <p class="seller">Seller: {{ item.1 }}</p> <!-- Applying the .seller class -->
+                <p class="price"><strong></strong> {{ item.2 }}</p> <!-- Applying the .price class -->
+                <p class="end-date"><strong>Auction expires:</strong> </p>
+                <p class="end-date-time">{{ item.3 }}</p> <!-- Applying the .end-date class -->
+            </div>
             {% endfor %}
-        </table>
-    </body>
-</html>
+        </div> <!-- Close item-container div -->
+
+        <div class="sell-section">
+            <p>Ready to list your items? <a href="/add_item/" class="btn-link"><button type="button" class="add-item-button">List item</button></a></p>
+        </div>
+    </div> <!-- Close container div -->
+</body>
+</html> 
