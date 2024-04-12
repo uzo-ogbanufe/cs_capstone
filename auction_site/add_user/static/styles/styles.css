@@ -35,6 +35,7 @@ form {
 }
 
 /* Style for labels */
+/*Enter a new username*/
 label {
     display: block; /* Display labels as block elements */
     text-align: left; /* Left align the text */
@@ -73,12 +74,17 @@ input[type="text"] {
 
 /* Style for submit button */
 .submit-button {
-    padding: 10px 20px; 
-    background-color: #007bff; 
-    color: #fff; 
-    border: none; 
-    border-radius: 5px; 
+    padding: 10px 20px;
+    background-color: #007bff; /* Primary color */
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline-block; /* This makes the anchor behave like a button */
+    text-align: center;
+    font-size: 1rem; /* Ensure font size is consistent */
 }
 
 /* Hover effect for submit button */
@@ -89,4 +95,55 @@ input[type="text"] {
 .btn-link {
     text-decoration: none; 
     color: #007bff; 
+}
+
+/* Style for the login link to look like a button */
+.login-link {
+    padding: 10px 20px;
+    background-color: #28a745; /* Primary color */
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline-block; /* This makes the anchor behave like a button */
+    text-align: center;
+    font-size: 1rem; /* Ensure font size is consistent */
+}
+
+/* Hover effect for the login link */
+.login-link:hover {
+    background-color: #218838; /* A darker green on hover */
+}
+
+/* Optional: Aligning the 'Login' text in the center if it is within a block element */
+.login-block {
+    text-align: center; /* Centers the text within the block */
+    margin-top: 10px; /* Adds space between the input and the link */
+}
+
+/* Style for the container of the login button to center it */
+/* Style for the container of the login button to center it */
+.login-button-container {
+    text-align: center; /* Centers the inline-block element */
+    width: 100%; /* Ensures the container spans the full width of its parent */
+    margin-top: 15px; /* Adds some space above the button */
+}
+
+.login-prompt {
+    text-align: center; /* Center the text */
+    font-size: 1rem; /* Adjust the font size as needed */
+    margin-top: 20px; /* Spacing from the previous element */
+}
+
+.sign-in-link {
+    color: #007bff; /* The color you want for the link */
+    text-decoration: underline; /* Underline the link */
+    font-weight: bold; /* If you want the text to be bold */
+}
+
+.sign-in-link:hover {
+    text-decoration: none; /* Remove underline on hover, optional */
+    color: #0056b3; /* Darker color on hover */
 }

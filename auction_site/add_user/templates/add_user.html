@@ -11,10 +11,10 @@
 <body>
     <div class="container">
         <div class="icon">&#xe7fd;</div> <!-- Display the icon -->
-        <h2>Login or create username</h2> 
+        <h2>Create an account.</h2> 
         <form method="post"> <!-- Form for user input -->
             {% csrf_token %} 
-            <label for="username">Enter your username:</label> <!-- Label for username input -->
+            <label for="username">Enter username:</label> <!-- Label for username input -->
             {{ form.username }} <!-- Display the username input field -->
             {% if form.username.errors %} <!-- Check for username input errors -->
                 <div class="alert alert-error"> <!-- Display error messages -->
@@ -28,10 +28,18 @@
                     </div>
                 {% endfor %}
             {% endif %}
-            <button type="submit" class="submit-button">Enter</button> <!-- Submit button for form -->
+            <button type="submit" class="submit-button">Create account</button> <!-- Submit button for form -->
         </form>
         <br>
-        <a href="/add_item/" class="btn-link"><button type="button" class="add-item-button">Add Item</button></a> <!-- Button to add an item -->
+         
+        <!-- <h2>Already have an account?</h2> 
+        <div class="login-button-container"> This div will center the login link/button -->
+            <!-- <a href="{% url 'login' %}" class="login-link">Login</a> Login link styled as a button -->
+        <!-- </div> -->
+        <!-- Other HTML elements above -->
+        <div class="login-prompt">
+            <h4>Already have an account? <a href="/login/" class="sign-in-link">Sign in.</a></h4>
+        </div>
     </div>
 </body>
 </html>

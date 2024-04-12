@@ -105,4 +105,24 @@ h2 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.logout-button-container {
+    position: absolute;  /* Absolute position relative to its position context */
+    top: 20px;          /* Position from the top of the viewport */
+    right: 20px;        /* Position from the right of the viewport */
+    z-index: 10;        /* Ensure it's on top of other elements */
+}
+
+button.logout-button {
+    padding: 8px 16px;
+    background-color: #dc3545; /* Bootstrap danger color for logout buttons */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button.logout-button:hover {
+    background-color: #bd2130;
+}
 

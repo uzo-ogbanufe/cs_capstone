@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <h1>Welcome, [ username ]!</h1>
+        <h1>Welcome, {{ username }}!</h1>
     </header>
 
     <div class="container">
@@ -31,5 +31,12 @@
             <p>Ready to list your items? <a href="/add_item/" class="btn-link"><button type="button" class="add-item-button">List item</button></a></p>
         </div>
     </div> <!-- Close container div -->
+    <!-- Logout Button -->
+    <div class="logout-button-container">
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
+    </div>
 </body>
 </html> 

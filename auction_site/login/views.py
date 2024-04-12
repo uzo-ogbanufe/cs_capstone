@@ -35,33 +35,37 @@ def userExists(username, request):
 def logout(request):
     # Delete the current session
     request.session.flush()
-     
+    messages.info(request, 'You have been logged out.')
     # Go back to the login page with an empty form
     return redirect(login)
 
 def login(request):
     '''
-    Check if the user exists, and if so log them in
+    Check if the user exists, and if so log them in and redirect to get_items.
     '''
     # Check if the user is already logged in
-    if 'username' in request.session.keys():
-        username = request.session['username']
-        return render(request, 'temp.html', {'username': username})  # Render a test page with the username
-
-    # Get the username
-    username = get_username(request)
-    if not username:  # Check if username is empty or invalid
-        messages.error(request, 'Invalid username')  # Add an error message if username is missing
-        form = UserForm() #Default to empty form
-        return render(request, 'login.html', {'form': form})
-
-    elif userExists(username, request):
-        request.session['username'] = username  # Add the username to the session
-        messages.success(request, 'Successfully logged in')  # display a success message
+    if 'username' in request.session:
+        # Redirect to the get_items page if the user is already logged in
+        return redirect('get_items')  # Make sure 'get_items' is the name of your URL pattern for get_items view
+    
+    if request.method == 'POST':
         form = UserForm(request.POST)
-        return render(request, 'temp.html', {'username': username})
-        
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            
+            # Check if the user exists
+            if userExists(username, request):
+                # Log in the user by adding the username to the session
+                request.session['username'] = username
+                # messages.success(request, 'Successfully logged in')
+                # Redirect to the get_items page after login
+                return redirect('get_items')  # Make sure 'get_items' is the name of your URL pattern for get_items view
+            else:
+                # Username does not exist, send an error message
+                messages.error(request, 'Username not recognized')
+
     else:
-        messages.error(request, 'Username or password not recognized')  # display an error message
-        form = UserForm(request.POST)
-    return render(request, 'login.html', {'form': form})  # Render the add_user.html template with the form data
+        form = UserForm()
+
+    # Display the login page with form
+    return render(request, 'login.html', {'form': form})
