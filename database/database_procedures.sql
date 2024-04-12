@@ -18,6 +18,21 @@ BEGIN
 END //
 DELIMITER ;
 
+-- Procedure to check if a user exists in the database
+DROP PROCEDURE IF EXISTS checkIfUserExists;
+DELIMITER //
+CREATE PROCEDURE checkIfUserExists(
+    IN filter_username VARCHAR(64)
+)
+BEGIN
+	-- Declare an error handler that returns False if an error occurs
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT FALSE;
+    
+    -- Check if the user exists
+    SELECT EXISTS (SELECT * FROM users WHERE username = filter_username);
+END //
+DELIMITER ;
+
 -- Procedure to add an item to the database
 DROP PROCEDURE IF EXISTS addItem;
 DELIMITER //

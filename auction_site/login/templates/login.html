@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add User</title>
+    <title>Login</title>
     <!-- Include Google Fonts and link to CSS file -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}">  <!-- Link to the CSS file using the static tag -->
@@ -11,10 +11,10 @@
 <body>
     <div class="container">
         <div class="icon">&#xe7fd;</div> <!-- Display the icon -->
-        <h2>Create an account.</h2> 
+        <h2>Login.</h2> 
         <form method="post"> <!-- Form for user input -->
             {% csrf_token %} 
-            <label for="username">Enter username:</label> <!-- Label for username input -->
+            <label for="username">Enter your username:</label> <!-- Label for username input -->
             {{ form.username }} <!-- Display the username input field -->
             {% if form.username.errors %} <!-- Check for username input errors -->
                 <div class="alert alert-error"> <!-- Display error messages -->
@@ -28,7 +28,7 @@
                     </div>
                 {% endfor %}
             {% endif %}
-            <button type="submit" class="submit-button">Create account</button> <!-- Submit button for form -->
+            <button type="submit" class="submit-button">Log In</button> <!-- Submit button for form -->
         </form>
         <br>
          
@@ -38,7 +38,7 @@
         <!-- </div> -->
         <!-- Other HTML elements above -->
         <div class="login-prompt">
-            <h4>Already have an account? <a href="/login/" class="sign-in-link">Sign in.</a></h4>
+            <h4>Need to create an account? <a href="/" class="sign-in-link">Create account.</a></h4>
         </div>
     </div>
 </body>
