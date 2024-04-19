@@ -59,9 +59,6 @@ def add_item(request):
                     results = cursor.fetchall()
                 
                     if bool(results[0][0]):
-                        # If the addItem was successful, use the messages framework
-                        # to add a success message
-                        results.success(request, 'Successfully added item.')
                         # Redirect to the home page or whichever page you'd like to display the message
                         return redirect('get_items')  # Replace with your actual URL name
                     else:
