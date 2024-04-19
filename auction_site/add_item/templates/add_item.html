@@ -2,21 +2,44 @@
 <html>
 <head>
     <title>Add Item</title>
-    <link rel="stylesheet" href="\static\add_items.css"> <!-- Make sure this path is correct -->
+    <link rel="stylesheet" href="/static/add_items.css"> <!-- Make sure this path is correct -->
 </head>
 <body>
     <div class="add-item-container">
         <h2>Add Item</h2>
+        
+        <!-- Display non-field-specific errors -->
+        {% if form.non_field_errors %}
+        <div class="errors" style="color: red;">
+            {% for error in form.non_field_errors %}
+                <p><strong>General Error:</strong> {{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <!-- The form starts here -->
         <form method="post" class="add-item-form">
             {% csrf_token %}
-            <label for="title">Title:</label>
-            {{ form.title }}
-            <label for="end_date">End Date:</label>
-            <input type="text" id="end_date" name="end_date" placeholder="YYYY-MM-DD HH:MM:SS" required>
-            <label for="initial_price">Initial Price:</label>
-            {{ form.initial_price }}
-            <label for="description">Description:</label>
-            {{ form.description }}
+            
+            <!-- Display errors for each field above the label -->
+            {% for field in form %}
+                <div class="form-group">
+                    {% if field.errors %}
+                        <div class="field-errors" style="color: red;">
+                            {% for error in field.errors %}
+                                <p><strong>{{ field.label }} Error:</strong> {{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if field.name == 'end_date' %}
+                        <label for="{{ field.id_for_label }}">{{ field.label }} (YYYY-MM-DD HH:MM:SS)</label>
+                    {% else %}
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {% endif %}
+                    {{ field }}
+                </div>
+            {% endfor %}
+            
             <div class="button-wrapper"> <!-- Button wrapper to center the button -->
                 <button type="submit" class="submit-button">Add Item</button>
             </div>

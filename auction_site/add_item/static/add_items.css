@@ -47,6 +47,7 @@ h2 {
 .add-item-form textarea {
     height: 120px;
     resize: vertical;
+    font-family: 'Arial', sans-serif;
 }
 
 .add-item-form button {

@@ -1,13 +1,55 @@
+# from django import forms
+# from django.core.exceptions import ValidationError
+# from django.utils.translation import gettext_lazy as _
+# import re
+
+# class UserForm(forms.Form):
+#     username = forms.CharField(label='Username', max_length=64)
+
+# class ItemForm(forms.Form):
+#     # username = forms.CharField(label='Username', max_length=64)
+#     title = forms.CharField(label='Title', max_length=64)
+#     end_date = forms.DateTimeField(label='End Date')
+#     initial_price = forms.DecimalField(label='Initial Price', max_digits=8, decimal_places=2, min_value=0)
+#     description = forms.CharField(label='Description', widget=forms.Textarea)
+
 from django import forms
 from django.core.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
-
-class UserForm(forms.Form):
-    username = forms.CharField(label='Username', max_length=64)
+from django.utils import timezone
+import re
 
 class ItemForm(forms.Form):
-    # username = forms.CharField(label='Username', max_length=64)
     title = forms.CharField(label='Title', max_length=64)
     end_date = forms.DateTimeField(label='End Date')
     initial_price = forms.DecimalField(label='Initial Price', max_digits=8, decimal_places=2, min_value=0)
     description = forms.CharField(label='Description', widget=forms.Textarea)
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        # Allow only alphanumeric characters and spaces in the title
+        if not re.match(r'^[\w ]+$', title):
+            raise ValidationError('Invalid characters in title. Only letters, numbers, and spaces are allowed.')
+        return title
+
+    def clean_end_date(self):
+        end_date = self.cleaned_data['end_date']
+        # Check that the end date is not in the past
+        if end_date < timezone.now():
+            raise ValidationError(('End date cannot be in the past. Please enter a future date.'))
+        return end_date
+    
+    def clean_initial_price(self):
+        initial_price = self.cleaned_data['initial_price']
+        if initial_price <= 0:
+            raise ValidationError(('The price must be greater than zero.'))
+        return initial_price
+    
+    def clean_description(self):
+        description = self.cleaned_data['description']
+        if len(description) < 1:
+            raise ValidationError(('The description must be at least 10 characters long.'))
+        if not re.match(r'^[\w\s.,?!:;"\'-]+$', description):
+            raise ValidationError('Invalid characters in description. Only letters, numbers, and spaces are allowed.')  
+        return description
+
+    # You can add more clean methods for other fields if you need custom validation.
