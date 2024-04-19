@@ -24,20 +24,24 @@
         <h2>Items for auction</h2>
         <div class="item-container">
             {% for item in items %}
-            <div class="item">
-                <h3>{{ item.0 }}</h3>
-                <p class="seller">Seller: {{ item.1 }}</p> <!-- Applying the .seller class -->
-                <p class="price"><strong></strong> {{ item.2 }}</p> <!-- Applying the .price class -->
-                <p class="end-date"><strong>Auction expires:</strong> </p>
-                <p class="end-date-time">{{ item.3 }}</p> <!-- Applying the .end-date class -->
-            </div>
+            <!-- Update the link below with the actual name of your url pattern for item details -->
+            <!-- and ensure item.4 or the correct index is where the item's ID is stored -->
+            <a href="{% url 'item_detail' item_id=item.0 %}" class="item-link">
+                <div class="item">
+                    <h3>{{ item.1 }}</h3>
+                    <p class="seller">Seller: {{ item.2 }}</p>
+                    <p class="price">{{ item.3}}</p>
+                    <p class="end-date">Auction expires: {{ item.4 }}</p>
+                </div>
+            </a>
             {% endfor %}
-        </div> <!-- Close item-container div -->
-
-        <div class="sell-section">
-            <p>Ready to list your items? <a href="/add_item/" class="btn-link"><button type="button" class="add-item-button">List item</button></a></p>
         </div>
     </div> <!-- Close container div -->
+
+    <div class="sell-section">
+        <p>Ready to list your items? <a href="/add_item/" class="btn-link"><button type="button" class="add-item-button">List item</button></a></p>
+    </div>
+
     <!-- Logout Button -->
     <div class="logout-button-container">
         <form action="{% url 'logout' %}" method="post">
@@ -46,4 +50,4 @@
         </form>
     </div>
 </body>
-</html> 
+</html>
