@@ -6,7 +6,7 @@ class UserForm(forms.Form):
     username = forms.CharField(label='Username', max_length=64)
 
 class ItemForm(forms.Form):
-    username = forms.CharField(label='Username', max_length=64)
+    # username = forms.CharField(label='Username', max_length=64)
     title = forms.CharField(label='Title', max_length=64)
     end_date = forms.DateTimeField(label='End Date')
     initial_price = forms.DecimalField(label='Initial Price', max_digits=8, decimal_places=2, min_value=0)
