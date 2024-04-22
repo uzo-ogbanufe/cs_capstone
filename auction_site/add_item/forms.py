@@ -22,12 +22,10 @@ class ItemForm(forms.Form):
     title = forms.CharField(label='Title', max_length=64)
     end_date = forms.DateTimeField(label='End Date')
     initial_price = forms.DecimalField(label='Initial Price', max_digits=8, decimal_places=2, min_value=0)
-    description = forms.CharField(label='Description', widget=forms.Textarea)
+    description = forms.CharField(label='Description', max_length=5000, widget=forms.Textarea)
 
     def clean_title(self):
         title = self.cleaned_data['title']
-        if len(title) > 64:
-            raise ValidationError(('The title must be less than 64 characters.'))
         # Allow only alphanumeric characters and spaces in the title
         if not re.match(r'^[a-zA-Z0-9 \-]+$', title):
             raise ValidationError('Invalid characters in title. Only letters, numbers, and spaces are allowed.')
@@ -48,8 +46,6 @@ class ItemForm(forms.Form):
     
     def clean_description(self):
         description = self.cleaned_data['description']
-        if len(description) > 5000:
-            raise ValidationError(('The description must be less than 5000 characters.'))
         if not re.match(r'^[a-zA-Z0-9\s.,?!:;"\'()-]+$', description):
             raise ValidationError('Invalid characters in description. Please use English characters and common punctuation.')  
         return description
