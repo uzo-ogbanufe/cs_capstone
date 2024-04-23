@@ -1,1 +1,1 @@
-mysqlslap --password=password --user=root --concurrency=10  --iterations=100 --query=stress_test.sql --create-schema=cs_capstone --delimiter=";" -v
+mysqlslap --password=password --user=root --concurrency=5  --iterations=5 --query=stress_test.sql --create-schema=cs_capstone --delimiter=";"
