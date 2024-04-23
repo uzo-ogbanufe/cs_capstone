@@ -126,3 +126,18 @@ button.logout-button:hover {
     background-color: #bd2130;
 }
 
+/* Add styles for Django messages */
+.messages {
+    margin: 1em 0; /* Adjust spacing as needed */
+}
+
+/* Style for success messages */
+.success {
+    color: #28a745; /* A common green color used for success messages */
+    background-color: #daf5e9; /* A light green background for visibility */
+    border: 1px solid #28a745; /* Green border to complement the text */
+    padding: 10px;
+    border-radius: 5px; /* Optional: for rounded corners */
+    margin-bottom: 20px;
+}
+
