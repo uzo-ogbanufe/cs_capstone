@@ -1,0 +1,6 @@
+# Ignore all cache files
+*.pyc
+
+# Ignore VS code settings
+.vscode/
+
