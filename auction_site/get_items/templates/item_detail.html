@@ -1,0 +1,12 @@
+<!-- Inside item_detail.html -->
+
+{% if item %}
+  <h1>{{ item.name }}</h1> <!-- Replace 'name' with the actual attribute -->
+  <p>Price: {{ item.price }}</p>
+  <p>Description: {{ item.description }}</p>
+  <!-- Add more item attributes as needed -->
+  <!-- Form for bidding -->
+  
+{% else %}
+  <p>Item not found.</p>
+{% endif %}
