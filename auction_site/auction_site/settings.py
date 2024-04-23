@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'add_item',
     'get_items',
     'login',
+    'bid',
 ]
 
 MIDDLEWARE = [

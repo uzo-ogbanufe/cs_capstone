@@ -23,4 +23,5 @@ urlpatterns = [
     path('add_item/', include('add_item.urls')),
     path('get_items/', include('get_items.urls')),
     path('login/', include('login.urls')),
+    path('bid/', include('bid.urls'))
 ]
