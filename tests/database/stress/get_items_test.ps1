@@ -1,0 +1,1 @@
+mysqlslap --password=password --user=root --concurrency=20  --iterations=100 --query=get_items.sql --create-schema=cs_capstone --delimiter=";"
