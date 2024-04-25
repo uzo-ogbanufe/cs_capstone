@@ -1,12 +1,54 @@
-<!-- Inside item_detail.html -->
-
-{% if item %}
-  <h1>{{ item.name }}</h1> <!-- Replace 'name' with the actual attribute -->
-  <p>Price: {{ item.price }}</p>
-  <p>Description: {{ item.description }}</p>
-  <!-- Add more item attributes as needed -->
-  <!-- Form for bidding -->
-  
-{% else %}
-  <p>Item not found.</p>
-{% endif %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Item</title>
+    <link rel="stylesheet" href="/static/welcome-page.css"> <!-- Make sure this path is correct -->
+</head>
+<body>
+    <div class="item-detail-container">
+      {% if item %}
+      <h1>{{ item.name }}</h1> <!-- Replace 'name' with the actual attribute -->
+      <p>Price: {{ item.price }}</p>
+      <p>Description: {{ item.description }}</p>
+      <!-- Add more item attributes as needed -->
+      <!-- Form for bidding -->
+      
+    {% else %}
+      <p>Item not found.</p>
+    {% endif %}
+    
+        <!-- Display non-field-specific errors -->
+        {% if form.non_field_errors %}
+        <div class="errors" style="color: red;">
+            {% for error in form.non_field_errors %}
+                <p><strong>General Error:</strong> {{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <!-- The form starts here -->
+        <form method="post" class="bid-form">
+            {% csrf_token %}
+            
+            <!-- Display errors for each field above the label -->
+            {% for field in form %}
+                <div class="form-group">
+                    {% if field.errors %}
+                        <div class="field-errors" style="color: red;">
+                            {% for error in field.errors %}
+                                <p><strong>{{ field.label }} Error:</strong> {{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            
+            <div class="button-wrapper"> <!-- Button wrapper to center the button -->
+                <button type="submit" class="submit-button">Place Bid</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

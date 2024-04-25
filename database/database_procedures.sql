@@ -146,3 +146,31 @@ END //
 -- Change the delimiter back to a semicolon
 DELIMITER ;
 
+-- Procedure to place a bid on an item
+DROP PROCEDURE IF EXISTS placeBid;
+DELIMITER //
+CREATE PROCEDURE placeBid(
+    IN filter_item_id INT,
+    IN bid_price INT,
+    IN bidder_username VARCHAR(64)
+)
+BEGIN
+    -- Declare an error handler that returns FALSE if an error occurs
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    SELECT FALSE;
+
+    -- Get the user_id associated with the username
+    SELECT user_id INTO @bidder_id
+    FROM users
+    WHERE username = bidder_username;
+
+    -- Get the desired values from the item table
+    UPDATE items
+    SET current_price = bid_price, highest_bidder_id = @bidder_id
+    WHERE item_id = filter_item_id;
+
+    -- Return number of rows changed
+    SELECT ROW_COUNT();
+END
+//
+DELIMITER ;
