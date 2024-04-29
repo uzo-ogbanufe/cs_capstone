@@ -12,13 +12,14 @@ def get_item_details(item_id):
     try:
         with connection.cursor() as cursor:
             # Call the stored procedure and pass validated form data
-            cursor.callproc('getItemDetails', [int(item_id)])
+            cursor.callproc('getItemDetails', [item_id])
             results = cursor.fetchone()
         
     except Exception as e:
         # Log the exception for debugging
         # For production, you might want to return a custom error message
-        print(f"Error when inserting item: {e}")
+        print(f"Error when getting item details: {e}")
+        raise Exception("Error getting item details")
     
     END_DATE_INDEX = 5
     ITEM_PRICE_INDEX = 3

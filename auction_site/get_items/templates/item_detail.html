@@ -10,6 +10,7 @@
       <h1>{{ item.name }}</h1> <!-- Replace 'name' with the actual attribute -->
       <p>Price: {{ item.price }}</p>
       <p>Description: {{ item.description }}</p>
+      <p>Auction End Date: {{ item.closing_date }}</p>
       <!-- Add more item attributes as needed -->
       <!-- Form for bidding -->
       
@@ -29,6 +30,19 @@
         <!-- The form starts here -->
         <form method="post" class="bid-form">
             {% csrf_token %}
+
+            {% if form.username.errors %} <!-- Check for username input errors -->
+                <div class="alert alert-error"> <!-- Display error messages -->
+                    {{ form.username.errors }}
+                </div>
+            {% endif %}
+            {% if messages %} <!-- Check for any messages from the server -->
+                {% for message in messages %} <!-- Iterate over messages -->
+                    <div class="alert alert-{{ message.tags }}"> <!-- Display message with appropriate styling -->
+                        {{ message }} <!-- Display the message content -->
+                    </div>
+                {% endfor %}
+            {% endif %}
             
             <!-- Display errors for each field above the label -->
             {% for field in form %}
@@ -45,8 +59,14 @@
                 </div>
             {% endfor %}
             
+            <!-- Button to submit bid -->
             <div class="button-wrapper"> <!-- Button wrapper to center the button -->
                 <button type="submit" class="submit-button">Place Bid</button>
+            </div>
+
+            <!-- Link to return to home page -->
+            <div class="home-prompt">
+                <a href="/get_items/" class="home-link">Return to Home</a>
             </div>
         </form>
     </div>
