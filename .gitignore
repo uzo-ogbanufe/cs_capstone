@@ -4,3 +4,5 @@
 # Ignore VS code settings
 .vscode/
 
+# Ignore virtual env
+*env/
