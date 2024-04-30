@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib import messages
+from django.contrib.messages import get_messages
 from django.db import connection
 from datetime import datetime
 
@@ -47,6 +48,12 @@ def place_bid(item_id, bidder_username, bid_price):
     return False
 
 
+def clear_messages(request):
+    storage = get_messages(request)
+    for message in storage:
+        # Mark all messages as used (removes them from storage)
+        storage.used = True
+
 def bid_on_item(request, item_id, bid_price):
     '''
     Allow the user to place a bid on the item corresponding to item id
@@ -62,19 +69,30 @@ def bid_on_item(request, item_id, bid_price):
     auction_end_date, current_price = get_item_details(item_id)
 
     # Reject bid if current time is later than the auction end time
-    if (datetime.now() > auction_end_date):
+    if datetime.now() > auction_end_date:
         messages.error(request, 'Bid not accepted: Auction has already expired')
         return redirect(f"/get_items/item/{item_id}/")
     
     # Check to see if bid price is higher than the current price
-    if (bid_price <= current_price):
+    if bid_price <= current_price:
         messages.error(request, 'Bid not accepted: Insufficient bid price')
         return redirect(f"/get_items/item/{item_id}/")
     
-    # If bid it otherwise valid, place the bid and refresh the page
+    # If the bid is otherwise valid, place the bid
     if place_bid(item_id, bidder_username, bid_price):
-        messages.success(request, 'Bid placed successfully')
-    else:
-        messages.error(request, "Bid not accepted: Unknown error, Try again")
-    return redirect(f"/get_items/item/{item_id}/")
+        # Clear previous success messages
+        clear_messages(request)
 
+        # Prepare a singular or plural message based on the bid count
+        bid_message = f"Bid placed successfully"
+
+        # Add a success message with the count
+        messages.success(request, bid_message)
+    else:
+        # Clear previous error messages
+        clear_messages(request)
+
+        messages.error(request, "Bid not accepted: Unknown error, Try again")
+    
+    # Redirect to refresh the page
+    return redirect(f"/get_items/item/{item_id}/")

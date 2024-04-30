@@ -141,3 +141,81 @@ button.logout-button:hover {
     margin-bottom: 20px;
 }
 
+/* Items details page */
+/* Item Detail Styles */
+
+.item-detail-container {
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #fff;
+    border: none; /* Remove border if present */
+    box-shadow: none; /* Remove shadow if present */
+}
+
+.item-header h2 {
+    color: #a9460cec;
+    margin-bottom: 10px;
+}
+
+.item-info p {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.price {
+    font-weight: bold;
+}
+
+.end-date {
+    font-style: italic;
+    color: #888;
+}
+
+.bid-form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 0px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.field-errors p, .errors p {
+    color: #d9534f;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f2dede;
+    margin-bottom: 10px;
+}
+
+.submit-button {
+    width: 20%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #a9460cec;
+    color: white;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.submit-button:hover {
+    background-color: #8a3b0dec;
+}
+
+.home-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #a9460cec;
+    text-decoration: none;
+    transition: color 0.2s ease
+}

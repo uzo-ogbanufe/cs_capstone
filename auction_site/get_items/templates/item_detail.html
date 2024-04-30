@@ -1,74 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>View Item</title>
-    <link rel="stylesheet" href="/static/welcome-page.css"> <!-- Make sure this path is correct -->
+    <link rel="stylesheet" href="/static/styles/welcome-page.css">
 </head>
 <body>
+
+<header>
+    <!-- This header tag might be where you have your navigation and logo -->
+    <h1>Item Details</h1>
+</header>
+
+<div class="container">
     <div class="item-detail-container">
-      {% if item %}
-      <h1>{{ item.name }}</h1> <!-- Replace 'name' with the actual attribute -->
-      <p>Price: {{ item.price }}</p>
-      <p>Description: {{ item.description }}</p>
-      <p>Auction End Date: {{ item.closing_date }}</p>
-      <!-- Add more item attributes as needed -->
-      <!-- Form for bidding -->
-      
-    {% else %}
-      <p>Item not found.</p>
-    {% endif %}
-    
-        <!-- Display non-field-specific errors -->
-        {% if form.non_field_errors %}
-        <div class="errors" style="color: red;">
-            {% for error in form.non_field_errors %}
-                <p><strong>General Error:</strong> {{ error }}</p>
-            {% endfor %}
+        {% if item %}
+        <div class="item-header">
+            <h2>{{ item.name }}</h2>
         </div>
-        {% endif %}
+        <div class="item-info">
+            <p class="price">Price: {{ item.price }}</p>
+            <p>Description: {{ item.description }}</p>
+            <p class="end-date">Auction End Date: {{ item.closing_date }}</p>
+        </div>
         
-        <!-- The form starts here -->
         <form method="post" class="bid-form">
             {% csrf_token %}
-
-            {% if form.username.errors %} <!-- Check for username input errors -->
-                <div class="alert alert-error"> <!-- Display error messages -->
-                    {{ form.username.errors }}
-                </div>
-            {% endif %}
-            {% if messages %} <!-- Check for any messages from the server -->
-                {% for message in messages %} <!-- Iterate over messages -->
-                    <div class="alert alert-{{ message.tags }}"> <!-- Display message with appropriate styling -->
-                        {{ message }} <!-- Display the message content -->
-                    </div>
+            
+            <!-- Display non-field-specific errors -->
+            {% if form.non_field_errors %}
+            <div class="errors">
+                {% for error in form.non_field_errors %}
+                <p><strong>General Error:</strong> {{ error }}</p>
                 {% endfor %}
+            </div>
             {% endif %}
             
             <!-- Display errors for each field above the label -->
             {% for field in form %}
-                <div class="form-group">
-                    {% if field.errors %}
-                        <div class="field-errors" style="color: red;">
-                            {% for error in field.errors %}
-                                <p><strong>{{ field.label }} Error:</strong> {{ error }}</p>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {{ field }}
+            <div class="form-group">
+                {% if field.errors %}
+                <div class="field-errors">
+                    {% for error in field.errors %}
+                    <p><strong>{{ field.label }} Error:</strong> {{ error }}</p>
+                    {% endfor %}
                 </div>
+                {% endif %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
             {% endfor %}
             
             <!-- Button to submit bid -->
-            <div class="button-wrapper"> <!-- Button wrapper to center the button -->
+            <div class="button-wrapper">
                 <button type="submit" class="submit-button">Place Bid</button>
             </div>
-
-            <!-- Link to return to home page -->
-            <div class="home-prompt">
-                <a href="/get_items/" class="home-link">Return to Home</a>
-            </div>
         </form>
+        <div class="home-prompt">
+            <a href="/get_items/" class="home-link">Return to Home</a>
+        </div>
+        {% else %}
+        <p class="item-not-found">Item not found.</p>
+        {% endif %}
     </div>
+</div>
+
 </body>
 </html>
