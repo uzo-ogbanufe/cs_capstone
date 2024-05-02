@@ -133,12 +133,20 @@ button.logout-button:hover {
 
 /* Style for success messages */
 .success {
-    color: #28a745; /* A common green color used for success messages */
-    background-color: #daf5e9; /* A light green background for visibility */
-    border: 1px solid #28a745; /* Green border to complement the text */
+    color: #28a745;
+    background-color: #daf5e9;
     padding: 10px;
-    border-radius: 5px; /* Optional: for rounded corners */
-    margin-bottom: 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #c3e6cb;  /* Light green border */
+}
+
+.alert.success-item {
+    color: #28a745;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #daf5e9;
+    margin-bottom: 10px;
 }
 
 /* Items details page */
@@ -193,6 +201,7 @@ button.logout-button:hover {
     border-radius: 5px;
     background-color: #f2dede;
     margin-bottom: 10px;
+    border: 1px solid #dab9b7;  /* Light green border */
 }
 
 .submit-button {
@@ -218,4 +227,21 @@ button.logout-button:hover {
     color: #a9460cec;
     text-decoration: none;
     transition: color 0.2s ease
+}
+
+/* Testing */
+.message-container {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.message.success {
+    background-color: #4CAF50; /* green for success messages */
+    color: white;
+}
+
+.message.error {
+    background-color: #f44336; /* red for error messages */
+    color: white;
 }

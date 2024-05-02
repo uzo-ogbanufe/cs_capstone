@@ -26,6 +26,14 @@
         
         <form method="post" class="bid-form">
             {% csrf_token %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} success-item">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
             
             <!-- Display non-field-specific errors -->
             {% if form.non_field_errors %}
