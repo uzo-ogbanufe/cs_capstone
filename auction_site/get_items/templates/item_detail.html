@@ -1,12 +1,77 @@
-<!-- Inside item_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Item</title>
+    <link rel="stylesheet" href="/static/styles/welcome-page.css">
+</head>
+<body>
 
-{% if item %}
-  <h1>{{ item.name }}</h1> <!-- Replace 'name' with the actual attribute -->
-  <p>Price: {{ item.price }}</p>
-  <p>Description: {{ item.description }}</p>
-  <!-- Add more item attributes as needed -->
-  <!-- Form for bidding -->
-  
-{% else %}
-  <p>Item not found.</p>
-{% endif %}
+<header>
+    <!-- This header tag might be where you have your navigation and logo -->
+    <h1>Item Details</h1>
+</header>
+
+<div class="container">
+    <div class="item-detail-container">
+        {% if item %}
+        <div class="item-header">
+            <h2>{{ item.name }}</h2>
+        </div>
+        <div class="item-info">
+            <p class="price">Price: {{ item.price }}</p>
+            <p>Description: {{ item.description }}</p>
+            <p class="end-date">Auction End Date: {{ item.closing_date }}</p>
+        </div>
+        
+        <form method="post" class="bid-form">
+            {% csrf_token %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} success-item">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- Display non-field-specific errors -->
+            {% if form.non_field_errors %}
+            <div class="errors">
+                {% for error in form.non_field_errors %}
+                <p><strong>General Error:</strong> {{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <!-- Display errors for each field above the label -->
+            {% for field in form %}
+            <div class="form-group">
+                {% if field.errors %}
+                <div class="field-errors">
+                    {% for error in field.errors %}
+                    <p><strong>{{ field.label }} Error:</strong> {{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+            
+            <!-- Button to submit bid -->
+            <div class="button-wrapper">
+                <button type="submit" class="submit-button">Place Bid</button>
+            </div>
+        </form>
+        <div class="home-prompt">
+            <a href="/get_items/" class="home-link">Return to Home</a>
+        </div>
+        {% else %}
+        <p class="item-not-found">Item not found.</p>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

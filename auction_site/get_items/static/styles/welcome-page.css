@@ -133,11 +133,115 @@ button.logout-button:hover {
 
 /* Style for success messages */
 .success {
-    color: #28a745; /* A common green color used for success messages */
-    background-color: #daf5e9; /* A light green background for visibility */
-    border: 1px solid #28a745; /* Green border to complement the text */
+    color: #28a745;
+    background-color: #daf5e9;
     padding: 10px;
-    border-radius: 5px; /* Optional: for rounded corners */
-    margin-bottom: 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #c3e6cb;  /* Light green border */
 }
 
+.alert.success-item {
+    color: #28a745;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #daf5e9;
+    margin-bottom: 10px;
+}
+
+/* Items details page */
+/* Item Detail Styles */
+
+.item-detail-container {
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #fff;
+    border: none; /* Remove border if present */
+    box-shadow: none; /* Remove shadow if present */
+}
+
+.item-header h2 {
+    color: #a9460cec;
+    margin-bottom: 10px;
+}
+
+.item-info p {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.price {
+    font-weight: bold;
+}
+
+.end-date {
+    font-style: italic;
+    color: #888;
+}
+
+.bid-form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 0px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.field-errors p, .errors p {
+    color: #d9534f;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f2dede;
+    margin-bottom: 10px;
+    border: 1px solid #dab9b7;  /* Light green border */
+}
+
+.submit-button {
+    width: 20%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #a9460cec;
+    color: white;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.submit-button:hover {
+    background-color: #8a3b0dec;
+}
+
+.home-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #a9460cec;
+    text-decoration: none;
+    transition: color 0.2s ease
+}
+
+/* Testing */
+.message-container {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.message.success {
+    background-color: #4CAF50; /* green for success messages */
+    color: white;
+}
+
+.message.error {
+    background-color: #f44336; /* red for error messages */
+    color: white;
+}
